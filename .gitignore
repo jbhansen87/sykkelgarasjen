@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs / temp
+*.log
+logs/
+tmp/
+cache/
+
+# sensitive local files
+nesnasykkel.no (MySQL DB).txt
+v2/config/sykkelgarasjen-db.php
+v2/.env
+
+# composer vendor
+v2/vendor/
+
+# random local files
+*.tmp

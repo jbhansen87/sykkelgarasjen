@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Send bookingforespørsel til Sykkelgarasjen Nesna.">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Sykkelgarasjen Nesna | Booking">
+<meta property="og:description" content="Send bookingforespørsel til Sykkelgarasjen Nesna.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nesnasykkel.no/booking.html">
+<meta property="og:locale" content="no_NO">
+<link rel="canonical" href="https://nesnasykkel.no/booking.html">
+<title>Sykkelgarasjen Nesna | Booking</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="brand-mark" aria-label="Sykkelgarasjen Nesna">
+            <img src="images/logo_new.png" alt="Sykkelgarasjen Nesna logo" class="logo">
+        </a>
+        <nav class="site-nav" aria-label="Hovedmeny">
+            <a href="index.html" class="nav-link">Forside</a>
+            <a href="tjenester-priser.html" class="nav-link">Tjenester og priser</a>
+            <a href="booking.html" class="nav-link is-current" aria-current="page">Booking</a>
+            <a href="index.html#updates" class="nav-link">Nyhetsbrev</a>
+            <a href="index.html#contact" class="nav-link">Kontakt</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <p class="status-pill">Booking</p>
+        <h1>Send bookingforespørsel</h1>
+        <h2>Vi tar kontakt så snart vi kan</h2>
+        <p class="hero-copy">
+            Fyll inn skjemaet med ønsket tjeneste og litt info om sykkelen, så følger vi opp bookingforespørselen din.
+        </p>
+    </section>
+
+    <section class="section">
+        <h3>Booking</h3>
+        <form id="booking-form" class="updates-form" novalidate>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="booking-name">Navn</label>
+                    <input id="booking-name" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div class="form-field">
+                    <label for="booking-email">E-post</label>
+                    <input id="booking-email" name="email" type="email" autocomplete="email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="booking-phone">Telefon</label>
+                    <input id="booking-phone" name="phone" type="tel" autocomplete="tel">
+                </div>
+                <div class="form-field">
+                    <label for="booking-service">Tjeneste</label>
+                    <select id="booking-service" name="service" required>
+                        <option value="">Velg tjeneste</option>
+                        <option value="annet-onske">Annet / eget ønske</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="booking-date">Ønsket dato</label>
+                    <input id="booking-date" name="preferredDate" type="date" autocomplete="off">
+                </div>
+                <div class="form-field">
+                    <label for="booking-time">Ønsket tidspunkt</label>
+                    <input id="booking-time" name="preferredTime" type="text" autocomplete="off" placeholder="F.eks. formiddag eller etter kl. 15">
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="booking-message">Beskrivelse</label>
+                <textarea id="booking-message" name="message" placeholder="Fortell gjerne kort hva du trenger hjelp med, og om det er noe spesielt vi bør vite."></textarea>
+                <small class="form-help">F.eks. type sykkel, ønsket service eller om det er en konkret feil.</small>
+            </div>
+            <div class="hp-field" aria-hidden="true">
+                <label for="booking-website">Website</label>
+                <input id="booking-website" name="website" type="text" autocomplete="off" tabindex="-1">
+            </div>
+            <label class="form-consent">
+                <input id="booking-consent" name="consent" type="checkbox" required>
+                <span>Jeg samtykker til at Sykkelgarasjen kan lagre opplysningene mine for å behandle bookingforespørselen.</span>
+            </label>
+            <label class="form-consent">
+                <input id="booking-newsletter" name="newsletter" type="checkbox">
+                <span>Jeg vil gjerne melde meg på nyhetsbrevet med informasjon om tjenester, tilbud og sesongtips.</span>
+            </label>
+            <button class="btn primary form-submit" type="submit">Send forespørsel</button>
+            <p id="booking-status" class="form-status" aria-live="polite"></p>
+        </form>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+         <p>2026 © Sykkelgarasjen Nesna<br>
+            En del av Bryhn Hansen Teknologi & Service | Org.nr 936017428 | Alle rettigheter forbeholdt</p>
+    </div>
+</footer>
+
+<script src="services-data.js"></script>
+<script>
+(() => {
+  const originalForm = document.getElementById("booking-form");
+  if (!originalForm) return;
+
+  const form = originalForm.cloneNode(true);
+  originalForm.replaceWith(form);
+
+  const status = form.querySelector("#booking-status");
+  const submitButton = form.querySelector("button[type='submit']");
+  const serviceSelect = form.querySelector("#booking-service");
+
+  if (!status || !submitButton || !serviceSelect) return;
+
+  if (Array.isArray(window.SERVICE_CATEGORIES)) {
+    const options = [];
+
+    for (const category of window.SERVICE_CATEGORIES) {
+      const groupOptions = category.items.map((item) => `<option value="${item.slug}">${item.name}</option>`).join("");
+      options.push(`<optgroup label="${category.title}">${groupOptions}</optgroup>`);
+    }
+
+    serviceSelect.insertAdjacentHTML("beforeend", options.join(""));
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const requestedService = params.get("service");
+  if (requestedService && window.getServiceBySlug && window.getServiceBySlug(requestedService)) {
+    serviceSelect.value = requestedService;
+  }
+
+  const setStatus = (message, state) => {
+    status.textContent = message;
+    status.classList.remove("is-success", "is-error");
+    if (state) status.classList.add(state);
+  };
+
+  const updateSubmitReadyState = () => {
+    submitButton.classList.toggle("is-ready", form.checkValidity());
+  };
+
+  form.addEventListener("input", updateSubmitReadyState);
+  form.addEventListener("change", updateSubmitReadyState);
+  updateSubmitReadyState();
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const service = window.getServiceBySlug ? window.getServiceBySlug(form.service.value) : null;
+    const selectedOption = form.service.options[form.service.selectedIndex];
+    const fallbackServiceName = selectedOption ? selectedOption.text : "";
+    const payload = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      serviceSlug: form.service.value,
+      serviceName: service ? service.name : fallbackServiceName,
+      preferredDate: form.preferredDate.value,
+      preferredTime: form.preferredTime.value.trim(),
+      message: form.message.value.trim(),
+      website: form.website ? form.website.value.trim() : "",
+      consent: form.consent.checked,
+      newsletter: form.newsletter.checked,
+      submittedAt: new Date().toISOString()
+    };
+
+    setStatus("Sender forespørsel ...");
+    submitButton.disabled = true;
+
+    try {
+      const response = await fetch("/api/booking.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "Kunne ikke sende bookingforespørselen. Prøv igjen.");
+      }
+
+      form.reset();
+      if (requestedService && window.getServiceBySlug && window.getServiceBySlug(requestedService)) {
+        serviceSelect.value = requestedService;
+      }
+      updateSubmitReadyState();
+
+      let successMessage = "Takk! Bookingforespørselen er sendt. Vi tar kontakt så snart vi kan.";
+
+      if (result.newsletter && result.newsletter.requested) {
+        if (result.newsletter.status === "subscribed") {
+          successMessage += " Du er også meldt på nyhetsbrevet.";
+        } else if (result.newsletter.status === "already_subscribed") {
+          successMessage += " E-postadressen din var allerede registrert på nyhetsbrevet.";
+        } else if (result.newsletter.status === "failed") {
+          successMessage += " Vi fikk ikke meldt deg på nyhetsbrevet akkurat nå.";
+        }
+      }
+
+      if (Array.isArray(result.warnings) && result.warnings.includes("notification_failed")) {
+        successMessage += " Bookingforespørselen er likevel lagret.";
+      }
+
+      setStatus(successMessage, "is-success");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Kunne ikke sende bookingforespørselen. Prøv igjen.";
+      setStatus(message, "is-error");
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

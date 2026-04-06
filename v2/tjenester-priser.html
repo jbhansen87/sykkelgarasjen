@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tjenester og priser hos Sykkelgarasjen Nesna. Alle priser er inkl. mva (25%).">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Sykkelgarasjen Nesna | Tjenester og priser">
+<meta property="og:description" content="Tjenester og priser hos Sykkelgarasjen Nesna.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nesnasykkel.no/tjenester-priser.html">
+<meta property="og:locale" content="no_NO">
+<link rel="canonical" href="https://nesnasykkel.no/tjenester-priser.html">
+<title>Sykkelgarasjen Nesna | Tjenester og priser</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="brand-mark" aria-label="Sykkelgarasjen Nesna">
+            <img src="images/logo_new.png" alt="Sykkelgarasjen Nesna logo" class="logo">
+        </a>
+        <nav class="site-nav" aria-label="Hovedmeny">
+            <a href="index.html" class="nav-link">Forside</a>
+            <a href="tjenester-priser.html" class="nav-link is-current" aria-current="page">Tjenester og priser</a>
+            <a href="booking.html" class="nav-link">Booking</a>
+            <a href="index.html#updates" class="nav-link">Nyhetsbrev</a>
+            <a href="index.html#contact" class="nav-link">Kontakt</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <p class="status-pill">Tjenester og priser</p>
+        <h1>Tjenester og priser</h1>
+        <h2>Alle priser er inkl. mva (25%)</h2>
+        <p class="hero-copy">
+            Prisene forutsetter at sykkelen og komponentene er i orden og ikke trenger reparasjon for å fungere som forventet etter en vanlig service.
+        </p>
+        <p class="cta-row">
+            <a class="btn primary" href="booking.html">Be om time</a>
+            <a class="btn ghost" href="index.html">Tilbake til forsiden</a>
+        </p>
+    </section>
+
+    <section class="section">
+        <div id="price-categories" class="price-categories"></div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+         <p>2026 © Sykkelgarasjen Nesna<br>
+            En del av Bryhn Hansen Teknologi & Service | Org.nr 936017428 | Alle rettigheter forbeholdt</p>
+    </div>
+</footer>
+
+<script src="services-data.js"></script>
+<script>
+(() => {
+  const container = document.getElementById("price-categories");
+  if (!container || !Array.isArray(window.SERVICE_CATEGORIES)) return;
+
+  container.innerHTML = window.SERVICE_CATEGORIES.map((category) => {
+    const items = category.items.map((item) => `
+      <a class="price-link" href="tjeneste.html?slug=${encodeURIComponent(item.slug)}">
+        <div class="price-link-head">
+          <h4>${item.name}</h4>
+          <span class="price-value">${item.price}</span>
+        </div>
+        <p class="price-action">Se detaljer</p>
+      </a>
+    `).join("");
+
+    return `
+      <section class="price-category">
+        <h3>${category.title}</h3>
+        <div class="price-list">
+          ${items}
+        </div>
+      </section>
+    `;
+  }).join("");
+})();
+</script>
+
+</body>
+</html>

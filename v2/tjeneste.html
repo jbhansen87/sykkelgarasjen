@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tjenestedetaljer hos Sykkelgarasjen Nesna.">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Sykkelgarasjen Nesna | Tjeneste">
+<meta property="og:description" content="Tjenestedetaljer hos Sykkelgarasjen Nesna.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nesnasykkel.no/tjeneste.html">
+<meta property="og:locale" content="no_NO">
+<link rel="canonical" href="https://nesnasykkel.no/tjeneste.html">
+<title>Sykkelgarasjen Nesna | Tjeneste</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="brand-mark" aria-label="Sykkelgarasjen Nesna">
+            <img src="images/sykkelgarasjen_logo2.png" alt="Sykkelgarasjen Nesna logo" class="logo">
+        </a>
+        <nav class="site-nav" aria-label="Hovedmeny">
+            <a href="index.html" class="nav-link">Forside</a>
+            <a href="tjenester-priser.html" class="nav-link is-current">Tjenester og priser</a>
+            <a href="booking.html" class="nav-link">Booking</a>
+            <a href="index.html#updates" class="nav-link">Nyhetsbrev</a>
+            <a href="index.html#contact" class="nav-link">Kontakt</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section id="service-hero" class="hero">
+        <p class="status-pill">Tjeneste</p>
+        <h1>Laster tjeneste ...</h1>
+    </section>
+
+    <section class="section service-detail-card" id="service-detail"></section>
+
+    <div class="service-back">
+        <a class="btn ghost" href="tjenester-priser.html">Tilbake til tjenester og priser</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+         <p>2026 © Sykkelgarasjen Nesna<br>
+            En del av Bryhn Hansen Teknologi & Service | Org.nr 936017428 | Alle rettigheter forbeholdt</p>
+    </div>
+</footer>
+
+<script src="services-data.js"></script>
+<script>
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+  const hero = document.getElementById("service-hero");
+  const detail = document.getElementById("service-detail");
+  const service = slug ? window.getServiceBySlug(slug) : null;
+
+  if (!hero || !detail) return;
+
+  if (!service) {
+    document.title = "Sykkelgarasjen Nesna | Tjeneste ikke funnet";
+    hero.innerHTML = `
+      <p class="status-pill">Tjeneste</p>
+      <h1>Tjenesten ble ikke funnet</h1>
+      <p class="hero-copy">Velg en tjeneste fra oversikten for å se pris og innhold.</p>
+      <p class="cta-row"><a class="btn primary" href="tjenester-priser.html">Gå til prislisten</a></p>
+    `;
+    detail.innerHTML = "";
+    return;
+  }
+
+  document.title = `Sykkelgarasjen Nesna | ${service.name}`;
+
+  hero.innerHTML = `
+    <p class="status-pill">${service.category}</p>
+    <h1>${service.name}</h1>
+    <h2>${service.price}</h2>
+    <p class="cta-row">
+      <a class="btn primary" href="booking.html?service=${encodeURIComponent(service.slug)}">Be om time</a>
+      <a class="btn ghost" href="tjenester-priser.html">Tilbake til prislisten</a>
+    </p>
+  `;
+
+  detail.innerHTML = `
+    <div class="service-meta">
+      <span class="service-meta-item">Pris: ${service.price}</span>
+      ${service.partsExtra === false ? "" : '<span class="service-meta-item">Deler kommer i tillegg</span>'}
+    </div>
+    <ul class="service-detail-list">
+      ${service.details.map((item) => `<li>${item}</li>`).join("")}
+      ${service.partsExtra === false ? "" : "<li>Deler kommer i tillegg.</li>"}
+    </ul>
+  `;
+})();
+</script>
+
+</body>
+</html>
