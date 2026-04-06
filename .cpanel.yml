@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/sflvghvq/public_html/
+    - /bin/cp -R v2/* $DEPLOYPATH
