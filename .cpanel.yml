@@ -1,12 +1,11 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/sflvghvq/public_html/
-    - /bin/cp v2/index.html $DEPLOYPATH
-    - /bin/cp v2/booking.html $DEPLOYPATH
-    - /bin/cp v2/styles.css $DEPLOYPATH
-    - /bin/cp v2/services-data.js $DEPLOYPATH
-    - /bin/cp v2/tjeneste.html $DEPLOYPATH
-    - /bin/cp v2/tjenester-priser.html $DEPLOYPATH
-    - /bin/cp -R v2/images $DEPLOYPATH
-    - /bin/cp -R v2/api $DEPLOYPATH
+    - /bin/cp v2/index.html /home/sflvghvq/public_html/
+    - /bin/cp v2/booking.html /home/sflvghvq/public_html/
+    - /bin/cp v2/styles.css /home/sflvghvq/public_html/
+    - /bin/cp v2/services-data.js /home/sflvghvq/public_html/
+    - /bin/cp v2/tjeneste.html /home/sflvghvq/public_html/
+    - /bin/cp v2/tjenester-priser.html /home/sflvghvq/public_html/
+    - /bin/cp -R v2/images /home/sflvghvq/public_html/
+    - /bin/cp -R v2/api /home/sflvghvq/public_html/
