@@ -16,7 +16,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="icon" href="images/favicon.png" type="image/png">
+<link rel="icon" href="images/logo_new.png" type="image/png">
 </head>
 <body>
 
@@ -31,6 +31,7 @@
             <a href="booking.html" class="nav-link is-current" aria-current="page">Booking</a>
             <a href="index.html#updates" class="nav-link">Nyhetsbrev</a>
             <a href="index.html#contact" class="nav-link">Kontakt</a>
+            <a href="https://www.facebook.com/profile.php?id=61588625710220" class="nav-link" target="_blank" rel="noopener noreferrer">Facebook</a>
         </nav>
     </div>
 </header>
@@ -50,6 +51,72 @@
         <form id="booking-form" class="updates-form" novalidate>
             <div class="form-row">
                 <div class="form-field">
+                    <label for="booking-service">Tjeneste</label>
+                    <select id="booking-service" name="service" required>
+                        <option value="">Velg tjeneste</option>
+                        <option value="annet-onske">Annet / eget ønske</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="booking-bike-type">Type sykkel / kjøretøy</label>
+                    <select id="booking-bike-type" name="bikeType" required>
+                        <option value="">Velg type</option>
+                        <optgroup label="Vanlige sykler">
+                            <option value="Barnesykkel">Barnesykkel</option>
+                            <option value="Bysykkel / hybrid">Bysykkel / hybrid</option>
+                            <option value="Terrengsykkel">Terrengsykkel</option>
+                            <option value="Landeveissykkel">Landeveissykkel</option>
+                            <option value="Gravel">Gravel</option>
+                            <option value="BMX">BMX</option>
+                            <option value="Annen sykkel">Annen sykkel</option>
+                        </optgroup>
+                        <optgroup label="Elsykler">
+                            <option value="Elsykkel by / hybrid">Elsykkel by / hybrid</option>
+                            <option value="Elsykkel terreng">Elsykkel terreng</option>
+                            <option value="Elsykkel landevei / gravel">Elsykkel landevei / gravel</option>
+                            <option value="Elsykkel cargo / last">Elsykkel cargo / last</option>
+                            <option value="Annen elsykkel">Annen elsykkel</option>
+                        </optgroup>
+                        <optgroup label="Andre kjøretøy">
+                            <option value="Cargobike / lastesykkel">Cargobike / lastesykkel</option>
+                            <option value="Sparkesykkel">Sparkesykkel</option>
+                            <option value="Barnevogn">Barnevogn</option>
+                            <option value="Annet kjøretøy">Annet kjøretøy</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="booking-transport">Trenger du hjelp til henting / frakt?</label>
+                    <select id="booking-transport" name="transportAssistance">
+                        <option value="no">Nei</option>
+                        <option value="yes">Ja</option>
+                        <option value="maybe">Kanskje / ønsker å avklare</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="booking-wash">Ønsker du vask av sykkelen?</label>
+                    <select id="booking-wash" name="washOption">
+                        <option value="not_requested">Nei takk</option>
+                        <option value="requested">Ja, gjerne</option>
+                        <option value="if_needed">Hvis det anbefales</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="booking-date">Ønsket dato</label>
+                    <input id="booking-date" name="preferredDate" type="date" autocomplete="off">
+                    <small id="booking-date-help" class="form-help">Velg tjeneste for å se kapasitet. Service har 2 plasser per dag, mindre jobber har 4.</small>
+                </div>
+                <div class="form-field">
+                    <label for="booking-time">Ønsket tidspunkt</label>
+                    <input id="booking-time" name="preferredTime" type="text" autocomplete="off" placeholder="F.eks. formiddag eller etter kl. 15">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
                     <label for="booking-name">Navn</label>
                     <input id="booking-name" name="name" type="text" autocomplete="name" required>
                 </div>
@@ -60,31 +127,19 @@
             </div>
             <div class="form-row">
                 <div class="form-field">
-                    <label for="booking-phone">Telefon</label>
+                    <label for="booking-phone">Telefon (valgfri)</label>
                     <input id="booking-phone" name="phone" type="tel" autocomplete="tel">
                 </div>
-                <div class="form-field">
-                    <label for="booking-service">Tjeneste</label>
-                    <select id="booking-service" name="service" required>
-                        <option value="">Velg tjeneste</option>
-                        <option value="annet-onske">Annet / eget ønske</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-field">
-                    <label for="booking-date">Ønsket dato</label>
-                    <input id="booking-date" name="preferredDate" type="date" autocomplete="off">
-                </div>
-                <div class="form-field">
-                    <label for="booking-time">Ønsket tidspunkt</label>
-                    <input id="booking-time" name="preferredTime" type="text" autocomplete="off" placeholder="F.eks. formiddag eller etter kl. 15">
+                <div class="form-field is-hidden" data-transport-address>
+                    <label for="booking-address">Adresse for henting / frakt</label>
+                    <input id="booking-address" name="address" type="text" autocomplete="street-address" placeholder="Legg inn adresse hvis du ønsker hjelp til henting eller frakt">
+                    <small class="form-help">Dette feltet vises bare når du ønsker hjelp til transport.</small>
                 </div>
             </div>
             <div class="form-field">
                 <label for="booking-message">Beskrivelse</label>
                 <textarea id="booking-message" name="message" placeholder="Fortell gjerne kort hva du trenger hjelp med, og om det er noe spesielt vi bør vite."></textarea>
-                <small class="form-help">F.eks. type sykkel, ønsket service eller om det er en konkret feil.</small>
+                <small class="form-help">F.eks. konkret feil, størrelse på sykkel, ønsket service eller annen nyttig info.</small>
             </div>
             <div class="hp-field" aria-hidden="true">
                 <label for="booking-website">Website</label>
@@ -123,8 +178,15 @@
   const status = form.querySelector("#booking-status");
   const submitButton = form.querySelector("button[type='submit']");
   const serviceSelect = form.querySelector("#booking-service");
+  const transportSelect = form.querySelector("#booking-transport");
+  const addressField = form.querySelector("[data-transport-address]");
+  const addressInput = form.querySelector("#booking-address");
+  const preferredDateInput = form.querySelector("#booking-date");
+  const preferredDateHelp = form.querySelector("#booking-date-help");
+  let unavailableDates = new Set();
+  let availabilityMessage = "";
 
-  if (!status || !submitButton || !serviceSelect) return;
+  if (!status || !submitButton || !serviceSelect || !preferredDateInput || !transportSelect || !addressField || !addressInput) return;
 
   if (Array.isArray(window.SERVICE_CATEGORIES)) {
     const options = [];
@@ -149,18 +211,119 @@
     if (state) status.classList.add(state);
   };
 
+  const todayIso = () => {
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  };
+
+  const applyDateMin = () => {
+    preferredDateInput.min = todayIso();
+  };
+
+  const formatDate = (dateValue) => {
+    const parsed = new Date(`${dateValue}T12:00:00`);
+    if (Number.isNaN(parsed.getTime())) return dateValue;
+    return parsed.toLocaleDateString("nb-NO");
+  };
+
+  const setDateHelp = (message, isError = false) => {
+    if (!preferredDateHelp) return;
+    preferredDateHelp.textContent = message;
+    preferredDateHelp.classList.toggle("is-error", isError);
+  };
+
+  const updateTransportVisibility = () => {
+    const transportValue = transportSelect.value;
+    const shouldShowAddress = transportValue === "yes" || transportValue === "maybe";
+    addressField.classList.toggle("is-hidden", !shouldShowAddress);
+    addressInput.required = transportValue === "yes";
+
+    if (!shouldShowAddress) {
+      addressInput.value = "";
+      addressInput.setCustomValidity("");
+    }
+  };
+
+  const validatePreferredDate = () => {
+    preferredDateInput.setCustomValidity("");
+
+    if (preferredDateInput.value && unavailableDates.has(preferredDateInput.value)) {
+      const message = `Valgt dato (${formatDate(preferredDateInput.value)}) er ikke tilgjengelig for booking.`;
+      preferredDateInput.setCustomValidity(message);
+      setDateHelp(`${message} Velg en annen dato.`, true);
+      return false;
+    }
+
+    setDateHelp(availabilityMessage, false);
+    return true;
+  };
+
+  const refreshAvailability = async () => {
+    const serviceSlug = serviceSelect.value;
+
+    if (!serviceSlug) {
+      unavailableDates = new Set();
+      availabilityMessage = "Velg tjeneste for å se kapasitet. Service har 2 plasser per dag, mindre jobber har 4.";
+      validatePreferredDate();
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/booking-availability.php?service=${encodeURIComponent(serviceSlug)}`);
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.ok) {
+        if (response.status === 409 && Array.isArray(result.unavailableDates)) {
+          unavailableDates = new Set(result.unavailableDates);
+          validatePreferredDate();
+        }
+        throw new Error(result.message || "Kunne ikke hente tilgjengelighet.");
+      }
+
+      unavailableDates = new Set(Array.isArray(result.unavailableDates) ? result.unavailableDates : []);
+      availabilityMessage = result.capacityType === "service"
+        ? "For denne tjenesten er det maks 2 bookinger per dag."
+        : "For denne typen jobb er det maks 4 bookinger per dag.";
+
+      if (unavailableDates.size > 0) {
+        const preview = Array.from(unavailableDates).slice(0, 3).map(formatDate).join(", ");
+        availabilityMessage += ` Utilgjengelige datoer akkurat nå: ${preview}${unavailableDates.size > 3 ? " ..." : ""}.`;
+      }
+
+      validatePreferredDate();
+    } catch (error) {
+      unavailableDates = new Set();
+      availabilityMessage = "Vi klarte ikke å hente kapasitet akkurat nå. Utilgjengelige datoer blir fortsatt avvist ved innsending.";
+      validatePreferredDate();
+    }
+  };
+
   const updateSubmitReadyState = () => {
+    validatePreferredDate();
     submitButton.classList.toggle("is-ready", form.checkValidity());
   };
 
+  applyDateMin();
+  updateTransportVisibility();
   form.addEventListener("input", updateSubmitReadyState);
   form.addEventListener("change", updateSubmitReadyState);
+  preferredDateInput.addEventListener("change", validatePreferredDate);
+  preferredDateInput.addEventListener("focus", refreshAvailability);
+  transportSelect.addEventListener("change", () => {
+    updateTransportVisibility();
+    updateSubmitReadyState();
+  });
+  serviceSelect.addEventListener("change", async () => {
+    await refreshAvailability();
+    updateSubmitReadyState();
+  });
   updateSubmitReadyState();
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    if (!form.checkValidity()) {
+    if (!validatePreferredDate() || !form.checkValidity()) {
       form.reportValidity();
       return;
     }
@@ -172,6 +335,10 @@
       name: form.name.value.trim(),
       email: form.email.value.trim(),
       phone: form.phone.value.trim(),
+      address: form.address.value.trim(),
+      bikeType: form.bikeType.value.trim(),
+      transportAssistance: form.transportAssistance.value,
+      washOption: form.washOption.value,
       serviceSlug: form.service.value,
       serviceName: service ? service.name : fallbackServiceName,
       preferredDate: form.preferredDate.value,
@@ -196,16 +363,28 @@
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.ok) {
+        if (response.status === 409 && Array.isArray(result.unavailableDates)) {
+          unavailableDates = new Set(result.unavailableDates);
+          validatePreferredDate();
+        }
         throw new Error(result.message || "Kunne ikke sende bookingforespørselen. Prøv igjen.");
       }
 
       form.reset();
+      applyDateMin();
+      updateTransportVisibility();
       if (requestedService && window.getServiceBySlug && window.getServiceBySlug(requestedService)) {
         serviceSelect.value = requestedService;
       }
+      await refreshAvailability();
       updateSubmitReadyState();
 
       let successMessage = "Takk! Bookingforespørselen er sendt. Vi tar kontakt så snart vi kan.";
+      if (result.customerConfirmationSent) {
+        successMessage += " Vi har sendt en bekreftelse til e-posten din.";
+      } else if (Array.isArray(result.warnings) && result.warnings.includes("customer_confirmation_failed")) {
+        successMessage += " Vi fikk ikke sendt bekreftelsesmail akkurat nå, men bookingforespørselen er mottatt.";
+      }
 
       if (result.newsletter && result.newsletter.requested) {
         if (result.newsletter.status === "subscribed") {
@@ -229,6 +408,8 @@
       submitButton.disabled = false;
     }
   });
+
+  refreshAvailability();
 })();
 </script>
 
