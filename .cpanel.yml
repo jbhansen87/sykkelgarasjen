@@ -7,5 +7,7 @@ deployment:
     - /bin/cp v2/services-data.js /home/sflvghvq/public_html/
     - /bin/cp v2/tjeneste.html /home/sflvghvq/public_html/
     - /bin/cp v2/tjenester-priser.html /home/sflvghvq/public_html/
+    - /bin/cp v2/robots.txt /home/sflvghvq/public_html/
     - /bin/cp -R v2/images /home/sflvghvq/public_html/
     - /bin/cp -R v2/api /home/sflvghvq/public_html/
+    - /bin/cp -R v2/vendor /home/sflvghvq/public_html/
